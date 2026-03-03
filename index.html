@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Holi - Dharmik Theme</title>
+    <!-- Google Font for Traditional Look -->
+    <link href="https://fonts.googleapis.com/css2?family=Yatra+One&display=swap" rel="stylesheet">
+    <style>
+        /* Dharmik/Traditional Background */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #FF9933 0%, #FF4500 50%, #8B0000 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow-x: hidden;
+            color: #333;
+            padding: 20px 0;
+        }
+
+        /* Canvas for Color/Gulal Effect */
+        #confetti-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Traditional Card Container */
+        .card-container {
+            background: #FFF8DC; 
+            border: 4px solid #DAA520; 
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.6), inset 0 0 15px rgba(218, 165, 32, 0.4);
+            max-width: 450px; /* Thoda bada kiya taaki nayi ad fit aaye */
+            width: 90%;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Top Dharmik Header */
+        .dharmik-header {
+            font-family: 'Yatra One', cursive;
+            color: #8B0000;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+
+        /* Image Styling */
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            border: 2px solid #DAA520;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            margin-bottom: 15px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+            100% { transform: scale(1); }
+        }
+
+        /* Holi Wishes Styling */
+        .holi-wish-text {
+            font-size: 1.1em;
+            color: #b22222;
+            font-weight: bold;
+            margin-bottom: 15px;
+            line-height: 1.5;
+            background: rgba(218, 165, 32, 0.1);
+            padding: 10px;
+            border-radius: 8px;
+            border-left: 3px solid #DAA520;
+            border-right: 3px solid #DAA520;
+            font-style: italic;
+        }
+
+        /* ADSTERRA AD CONTAINER */
+        .ad-container {
+            margin: 15px auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            border-radius: 5px;
+            overflow: hidden;
+            background: transparent;
+        }
+
+        /* Make iframes responsive for mobile screens */
+        .ad-container iframe {
+            max-width: 100%;
+        }
+
+        /* Text Animations & Styles */
+        .greeting-text {
+            font-family: 'Yatra One', cursive;
+            font-size: 3em;
+            color: #FF4500;
+            margin-bottom: 5px;
+            text-shadow: 2px 2px 4px #DAA520;
+            animation: colorChange 3s infinite alternate;
+        }
+
+        .from-text {
+            font-size: 1.2em;
+            color: #555;
+            font-weight: bold;
+            margin-top: -5px;
+        }
+
+        .sender-name {
+            font-family: 'Yatra One', cursive;
+            font-size: 2.5em;
+            color: #D2691E;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: bounceIn 1s ease-out;
+        }
+
+        .wishes-text {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #8B0000;
+            margin-bottom: 20px;
+        }
+
+        /* Animations */
+        @keyframes bounceIn {
+            0% { transform: scale(0); opacity: 0; }
+            70% { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(1); }
+        }
+        @keyframes colorChange {
+            0% { color: #FF4500; }
+            50% { color: #FF1493; }
+            100% { color: #8B0000; }
+        }
+
+        /* Input Box Styling */
+        .input-box {
+            margin-top: 15px;
+            border-top: 2px dashed #DAA520;
+            padding-top: 20px;
+        }
+
+        input[type="text"] {
+            width: 85%;
+            padding: 12px;
+            border: 2px solid #DAA520;
+            background: #FFF;
+            border-radius: 8px;
+            font-size: 16px;
+            text-align: center;
+            outline: none;
+            font-weight: bold;
+            color: #8B0000;
+            margin-bottom: 15px;
+        }
+
+        input[type="text"]:focus {
+            box-shadow: 0 0 10px rgba(218, 165, 32, 0.8);
+        }
+
+        /* WHATSAPP BUTTON STYLING */
+        .whatsapp-btn {
+            background: #25D366; 
+            color: white;
+            border: 2px solid #FFF;
+            padding: 12px 20px;
+            border-radius: 30px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(37, 211, 102, 0.5);
+            transition: 0.3s;
+            width: 95%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .whatsapp-btn:hover {
+            transform: scale(1.05);
+            background: #20b858;
+            box-shadow: 0 6px 15px rgba(37, 211, 102, 0.7);
+        }
+
+        /* Share Area Fallback */
+        #share-area {
+            display: none;
+            margin-top: 20px;
+            background: rgba(255, 165, 0, 0.2);
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #DAA520;
+        }
+
+        .link-box {
+            word-break: break-all;
+            background: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 13px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Canvas for Flying Colors Effect -->
+    <canvas id="confetti-canvas"></canvas>
+
+    <!-- Main Card -->
+    <div class="card-container">
+        <div class="dharmik-header">🕉️ || जय श्री कृष्ण || 🕉️</div>
+        
+        <div class="image-container">
+            <!-- Animation Image -->
+            <img src="holi.gif" alt="Holi Animation" onerror="this.src='https://media.giphy.com/media/l41YfG5EWeEozC3Xq/giphy.gif'">
+            
+            <!-- Holi Wishes -->
+            <div class="holi-wish-text">
+                "मथुरा की खुशबू, गोकुल का हार,<br>
+                वृन्दावन की सुगंध, बरसाने की फुहार!<br>
+                राधा की उम्मीद, कान्हा का प्यार,<br>
+                मुबारक हो आपको होली का त्योहार!"
+            </div>
+        </div>
+
+        <!-- ADSTERRA AD PLACEMENT AREA 1 (TOP) - 320x50 -->
+        <div class="ad-container" style="min-height: 50px;">
+            <iframe id="safe-ad-iframe-top" width="320" height="50" style="border:none; overflow:hidden;" sandbox="allow-scripts allow-popups allow-popups-to-escape-sandbox allow-same-origin"></iframe>
+        </div>
+        <!-- AD 1 ENDS HERE -->
+
+        <!-- Hidden by default, shown if URL has a name -->
+        <div id="greeting-box" style="display: none;">
+            <div class="greeting-text">Happy Holi</div>
+            <div class="from-text">From</div>
+            <div class="sender-name" id="display-name"></div>
+            <div class="wishes-text">
+                ईश्वर से प्रार्थना है कि रंगों का यह पर्व<br>
+                आपके और आपके परिवार के जीवन में<br>
+                सुख, शांति और समृद्धि लेकर आए।
+            </div>
+        </div>
+
+        <!-- Name Input Section -->
+        <div class="input-box" id="input-box">
+            <p style="color:#8B0000; font-weight:bold; margin-top:0;">👇 आप भी अपना नाम लिखकर भेजें 👇</p>
+            <input type="text" id="userName" placeholder="Yahan Apna Naam Likhen..." autocomplete="off">
+            <br>
+            <!-- DIRECT WHATSAPP SHARE BUTTON -->
+            <button class="whatsapp-btn" onclick="generateAndShareWhatsApp()">
+                <!-- WhatsApp SVG Logo -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="white">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                </svg>
+                WhatsApp Par Bhejein
+            </button>
+        </div>
+
+        <!-- Copy Link Fallback Area -->
+        <div id="share-area">
+            <p style="color: #8B0000; font-weight: bold; margin-top:0;">Agar direct share nahi hua to link copy karein:</p>
+            <div class="link-box" id="generated-link"></div>
+            <button onclick="copyToClipboard()" style="background: #11998e; color:white; padding: 8px 15px; border:none; border-radius:5px; cursor:pointer;">🔗 Copy Link</button>
+        </div>
+
+        <!-- NEW ADSTERRA AD PLACEMENT AREA 2 (BOTTOM) - 468x60 -->
+        <div class="ad-container" style="margin-top: 25px; min-height: 60px;">
+            <iframe id="safe-ad-iframe-bottom" width="468" height="60" style="border:none; overflow:hidden;" sandbox="allow-scripts allow-popups allow-popups-to-escape-sandbox allow-same-origin"></iframe>
+        </div>
+        <!-- AD 2 ENDS HERE -->
+
+    </div>
+
+    <script>
+        // --- 1. SAFELY INJECT ADSTERRA ADS ---
+        window.addEventListener('load', function() {
+            
+            // TOP AD CODE (320x50)
+            const topAdCode = `
+                <!DOCTYPE html>
+                <html>
+                <head><style>body{margin:0;padding:0;text-align:center;background:transparent;}</style></head>
+                <body>
+                    <script type="text/javascript">
+                        atOptions = {
+                            'key' : 'f673eb36ff81d76a4cf75154270196dc',
+                            'format' : 'iframe',
+                            'height' : 50,
+                            'width' : 320,
+                            'params' : {}
+                        };
+                    <\/script>
+                    <script type="text/javascript" src="https://www.highperformanceformat.com/f673eb36ff81d76a4cf75154270196dc/invoke.js"><\/script>
+                </body>
+                </html>
+            `;
+
+            // NEW BOTTOM AD CODE (468x60)
+            const bottomAdCode = `
+                <!DOCTYPE html>
+                <html>
+                <head><style>body{margin:0;padding:0;text-align:center;background:transparent;}</style></head>
+                <body>
+                    <script type="text/javascript">
+                        atOptions = {
+                            'key' : 'cc6adb557976905a4d54790ca5e4a4f9',
+                            'format' : 'iframe',
+                            'height' : 60,
+                            'width' : 468,
+                            'params' : {}
+                        };
+                    <\/script>
+                    <script type="text/javascript" src="https://www.highperformanceformat.com/cc6adb557976905a4d54790ca5e4a4f9/invoke.js"><\/script>
+                </body>
+                </html>
+            `;
+
+            // Function to safely inject ad code to iframe
+            function injectSafeAd(iframeId, adHTML) {
+                try {
+                    const adIframe = document.getElementById(iframeId);
+                    if(adIframe) {
+                        const adDoc = adIframe.contentWindow.document;
+                        adDoc.open();
+                        adDoc.write(adHTML);
+                        adDoc.close();
+                    }
+                } catch (e) {
+                    console.log("Ad Blocked by browser.");
+                }
+            }
+
+            // Inject both ads
+            injectSafeAd('safe-ad-iframe-top', topAdCode);
+            injectSafeAd('safe-ad-iframe-bottom', bottomAdCode);
+        });
+
+        // --- 2. GULAL / CONFETTI EFFECT SCRIPT (3x INCREASED) ---
+        const canvas = document.getElementById('confetti-canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let particles =[];
+        // Traditional Holi Colors
+        const colors =['#FF1493', '#FFFF00', '#00FF00', '#FF4500', '#9400D3', '#00BFFF'];
+
+        function initConfetti() {
+            particles =[];
+            for (let i = 0; i < 450; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height - canvas.height,
+                    r: Math.random() * 6 + 2, 
+                    dx: Math.random() * 4 - 2, 
+                    dy: Math.random() * 3 + 2, 
+                    color: colors[Math.floor(Math.random() * colors.length)]
+                });
+            }
+        }
+
+        function animateConfetti() {
+            requestAnimationFrame(animateConfetti);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            particles.forEach(p => {
+                p.x += p.dx;
+                p.y += p.dy;
+                p.x += Math.sin(p.y * 0.02) * 1; 
+
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                ctx.fillStyle = p.color;
+                ctx.fill();
+
+                if (p.y > canvas.height) {
+                    p.y = -10;
+                    p.x = Math.random() * canvas.width;
+                }
+            });
+        }
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // --- 3. LOGIC FOR NAME AND DIRECT WHATSAPP SHARE ---
+        window.onload = function() {
+            initConfetti();
+            animateConfetti();
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const nameParam = urlParams.get('n');
+
+            if (nameParam) {
+                const decodedName = decodeURIComponent(escape(atob(nameParam))); 
+                document.getElementById('display-name').innerText = decodedName;
+                document.getElementById('greeting-box').style.display = 'block';
+                document.title = decodedName + " - Happy Holi!";
+            }
+        };
+
+        function generateAndShareWhatsApp() {
+            const nameInput = document.getElementById('userName').value.trim();
+            if (nameInput === "") {
+                alert("Kripya share karne se pehle apna naam likhen!");
+                return;
+            }
+
+            // URL safe encoding
+            const encodedName = btoa(unescape(encodeURIComponent(nameInput)));
+            const baseUrl = window.location.origin + window.location.pathname;
+            const finalUrl = baseUrl + "?n=" + encodedName;
+
+            // Prepare WhatsApp Message
+            const message = `🕉️ ${nameInput} ne aapke liye ek bahut sundar Holi ka sandesh bheja hai! Jaldi is blue link par click karke dekhein 👉 ${finalUrl}`;
+            const encodedMessage = encodeURIComponent(message);
+
+            // WhatsApp URLs
+            const whatsappUrl = "whatsapp://send?text=" + encodedMessage;
+            const webWhatsappUrl = "https://web.whatsapp.com/send?text=" + encodedMessage;
+
+            // Show link in a box below
+            document.getElementById('generated-link').innerText = finalUrl;
+            document.getElementById('share-area').style.display = 'block';
+
+            // Automatically Open WhatsApp
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                window.location.href = whatsappUrl;
+            } else {
+                window.open(webWhatsappUrl, '_blank');
+            }
+        }
+
+        function copyToClipboard() {
+            const linkText = document.getElementById('generated-link').innerText;
+            navigator.clipboard.writeText(linkText).then(() => {
+                alert("Link Copy ho gaya hai! Ab aap isse paste kar sakte hain.");
+            });
+        }
+    </script>
+</body>
+</html>
